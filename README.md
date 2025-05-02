@@ -77,12 +77,27 @@ The backend is built with FastAPI. Key features:
 - LangGraph agent implementation
 - File processing and storage
 
+#### Database Setup
+The backend uses a modular database setup:
+- `database.py`: Core database connection and session management
+- `models.py`: SQLAlchemy model definitions
+- `__init__.py`: Database initialization with automatic model discovery
+- Automatic table creation and pgvector extension setup
+- Efficient session management with FastAPI dependency injection
+
 ### AI Agent Development
 The AI system uses LangGraph for:
 - Presentation analysis
 - Semantic search
 - Context-aware responses
 - Multi-agent collaboration
+
+## Recent Changes
+- Refactored database initialization for better maintainability
+- Implemented automatic model discovery in database setup
+- Consolidated database session management
+- Improved error handling in database operations
+- Removed redundant code and improved code organization
 
 ## Deployment
 
