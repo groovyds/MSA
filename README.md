@@ -1,126 +1,66 @@
 # Marketing Strategist AI Assistant
 
-An AI-powered application for analyzing PowerPoint presentations using LangGraph and GPT-4.
+Your AI-powered partner for analyzing and understanding PowerPoint presentations. Get instant insights, search across your presentations, and chat with an AI assistant that understands your content.
 
-## Features
-- PowerPoint presentation analysis
-- Semantic search across presentations
-- AI-powered chat interface
-- Vector similarity search using pgvector
+## 🚀 Key Features
 
-## Tech Stack
-- Frontend: Next.js, TypeScript, Tailwind CSS
-- Backend: FastAPI, PostgreSQL with pgvector
-- AI: LangGraph, GPT-4-mini
-- Infrastructure: AWS EC2
+- **Smart Presentation Analysis**: Upload your PowerPoint files and get instant AI-powered analysis
+- **Semantic Search**: Find relevant content across all your presentations using natural language
+- **AI Chat Interface**: Ask questions about your presentations and get intelligent responses
+- **Vector Search**: Advanced search capabilities that understand the meaning behind your content
 
-## Project Structure
-```
-marketing-strategist-ai/
-├── frontend/          # Next.js frontend application
-├── backend/           # FastAPI backend application
-├── infrastructure/    # AWS infrastructure setup
-└── docs/             # Project documentation
-```
+## 🎯 Who is this for?
 
-## Getting Started
+- Marketing professionals who need to analyze multiple presentations
+- Teams looking to extract insights from their presentation archives
+- Anyone who wants to quickly find specific information across multiple PowerPoint files
+- Users who need an AI assistant to help understand presentation content
+
+## 🛠️ Quick Start
 
 ### Prerequisites
-- Node.js 18+
-- Python 3.9+
-- PostgreSQL 15+
-- AWS Account
+- A modern web browser
+- PowerPoint files to analyze
+- An internet connection
 
-### Installation
+### Getting Started
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/marketing-strategist-ai.git
-cd marketing-strategist-ai
-```
+1. **Access the Application**
+   - Visit our web application at [insert-production-url]
+   - Create an account or sign in
 
-2. Set up the frontend:
-```bash
-cd frontend
-npm install
-npm run dev
-```
+2. **Upload Your Presentations**
+   - Click the "Upload" button
+   - Select your PowerPoint files
+   - Wait for the AI to process your content
 
-3. Set up the backend:
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+3. **Start Exploring**
+   - Use the search bar to find specific content
+   - Chat with the AI assistant about your presentations
+   - View analysis results and insights
 
-4. Set up the database:
-```bash
-# Install PostgreSQL with pgvector extension
-# Create database and run migrations
-```
+## 💡 How It Works
 
-## Development
+1. **Upload**: Share your PowerPoint presentations with our secure platform
+2. **Process**: Our AI analyzes the content, including text, images, and structure
+3. **Search**: Use natural language to find exactly what you're looking for
+4. **Chat**: Get answers to your questions about the presentation content
+5. **Analyze**: Receive insights and summaries about your presentations
 
-### Frontend Development
-The frontend is built with Next.js and TypeScript. Key features:
-- Modern UI with Tailwind CSS
-- Real-time chat interface
-- File upload and management
-- Responsive design
+## 🔒 Security & Privacy
 
-### Backend Development
-The backend is built with FastAPI. Key features:
-- RESTful API endpoints
-- PostgreSQL with pgvector integration
-- LangGraph agent implementation
-- File processing and storage
+- Your data is encrypted in transit and at rest
+- We never share your content with third parties
+- You maintain full control over your data
+- Regular security audits and updates
 
-#### Database Setup
-The backend uses a modular database setup:
-- `database.py`: Core database connection and session management
-- `models.py`: SQLAlchemy model definitions
-- `__init__.py`: Database initialization with automatic model discovery
-- Automatic table creation and pgvector extension setup
-- Efficient session management with FastAPI dependency injection
+## 📞 Support
 
-### AI Agent Development
-The AI system uses LangGraph for:
-- Presentation analysis
-- Semantic search
-- Context-aware responses
-- Multi-agent collaboration
+Need help? We're here for you:
+- Email: support@marketing-strategist-ai.com
+- Documentation: [Documentation Center](docs/)
+- FAQ: [Frequently Asked Questions](docs/faq.md)
 
-## Recent Changes
-- Refactored database initialization for better maintainability
-- Implemented automatic model discovery in database setup
-- Consolidated database session management
-- Improved error handling in database operations
-- Removed redundant code and improved code organization
+## 📜 License
 
-## Deployment
-
-### AWS EC2 Setup
-1. Launch EC2 instance
-2. Configure security groups
-3. Set up PostgreSQL with pgvector
-4. Deploy frontend and backend
-5. Configure Nginx and SSL
-
-## Documentation
-Detailed documentation can be found in the `docs/` directory:
-- [Architecture Overview](docs/architecture.md)
-- [API Documentation](docs/api.md)
-- [Deployment Guide](docs/deployment.md)
-- [Development Guide](docs/development.md)
-
-## Contributing
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 

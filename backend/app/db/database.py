@@ -2,14 +2,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import os
 from dotenv import load_dotenv
+from app.core.config import settings
 
-# Load environment variables with UTF-16 encoding
-load_dotenv(encoding='utf-16')
+# Load environment variables
+load_dotenv(encoding="utf-16")
 
-# Get database URL from environment variable
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL")
+# Create SQLAlchemy engine using the database URL from settings
+SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URI
 
-# Create engine with pgvector support
+# Create engine
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 # Create session factory
