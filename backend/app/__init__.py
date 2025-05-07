@@ -5,22 +5,21 @@ This module initializes the FastAPI application and its core components.
 It sets up database connections, configures middleware, and imports all necessary routers.
 """
 
-import os
-from typing import Optional
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
+
+import os
+from typing import Optional
 
 # Load environment variables
 load_dotenv()
 
 # Import core components
 from app.core.config import settings
-from app.db.session import SessionLocal
-from app.db.base import Base
-from app.db.init_db import init_db
+from app.db.database import SessionLocal
+from app.db import init_db
 
 # Import routers
 from app.api import chat, presentations
@@ -67,8 +66,13 @@ def create_app() -> FastAPI:
             db.close()
 
     @app.get("/")
-    async def root():
-        """Root endpoint."""
+    async def root() -> dict:
+        """Root endpoint.
+
+        Returns:
+            dict: A welcome message.
+        
+        """
         return {"message": f"Welcome to {settings.APP_NAME} API"}
 
     @app.get("/health")
