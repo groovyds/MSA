@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     REDOC_URL: str = "/api/redoc"
 
     # CORS Settings
-    CORS_ORIGINS: List[str] = ["http://localhost:3000"]
+    CORS_ORIGINS: List[str] = ["http://localhost:3000"]  # React frontend URL
     CORS_CREDENTIALS: bool = True
     CORS_METHODS: List[str] = ["*"]
     CORS_HEADERS: List[str] = ["*"]
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
 
     # OpenAI Settings
     OPENAI_API_KEY: str
-    OPENAI_MODEL: str = "gpt-4"
+    OPENAI_MODEL: str = "gpt-4o-mini"
     OPENAI_TEMPERATURE: float = 0.7
 
     # File Upload Settings

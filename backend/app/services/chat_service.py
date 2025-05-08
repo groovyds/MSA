@@ -1,9 +1,12 @@
-from typing import List, Dict, Any
-import os
 from openai import OpenAI
 from dotenv import load_dotenv
+
+from typing import List, Dict, Any
+import os
+
 from sqlalchemy.orm import Session
 from .embedding_service import get_similar_chunks
+from app.core.config import settings
 
 # Load environment variables
 load_dotenv(encoding='utf-16')
@@ -58,12 +61,12 @@ Your response:"""
         
         # Generate response using OpenAI
         response = client.chat.completions.create(
-            model="gpt-4-turbo-preview",
+            model= settings.OPENAI_MODEL,
             messages=[
                 {"role": "system", "content": "You are a helpful AI assistant discussing a presentation."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.7,
+            temperature=settings.OPENAI_TEMPERATURE,
             max_tokens=500
         )
         

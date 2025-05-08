@@ -6,6 +6,7 @@ from sqlalchemy.sql import func
 from pgvector.sqlalchemy import Vector
 import uuid
 from sqlalchemy.orm import relationship, Mapped, mapped_column
+
 from typing import List, Optional
 
 Base = declarative_base()
@@ -25,11 +26,11 @@ class Presentation(Base):
     __tablename__ = "presentations"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    filename: Mapped[str] = mapped_column(String, index=True)
+    filename: Mapped[str] = mapped_column(String, index=True, filename=True)
     upload_date: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    file_data: Mapped[bytes] = mapped_column(LargeBinary)
-    presentation_metadata: Mapped[dict] = mapped_column(JSONB)
-    user_id: Mapped[str] = mapped_column(String)
+    file_data: Mapped[Optional[bytes]] = mapped_column(LargeBinary)
+    presentation_metadata: Mapped[Optional[dict]] = mapped_column(JSONB)
+    user_id: Mapped[str] = mapped_column(String, index=True)
     
     # Relationship with embeddings
     embeddings: Mapped[List["PresentationEmbedding"]] = relationship(

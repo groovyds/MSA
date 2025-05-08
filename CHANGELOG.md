@@ -5,7 +5,23 @@ All notable changes to the Marketing Strategist AI Assistant project will be doc
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [x] 2025-05-25
+## [x] 2025-05-07
+
+### Added
+- Field description in schema>chat_schema, chatMessage-content.
+- File size checking for file upload in presentations api.
+- Logging for cleanup function>presentations in api.
+- Filename checking with regex added to schemas for presentation.
+- Logging for app startup in __init__
+- Logging into requirements.txt TODO
+
+
+## Changed
+- Exporting "Base" is now dented out from init file of app
+- In database models, changed file_Data and meta_data to be Optional.
+- db/models changed filename to be unique, and changed user_id to index = True
+
+## [x] 2025-04-25
 
 ### Added
 - Initial project setup with Next.js frontend and FastAPI backend
@@ -39,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enhanced input validation and sanitization
 - Updated dependencies to latest secure versions
 
-## [0.1.0] - 2025-03-20
+## [0.1.0] - 2025-04-20
 
 ### Technical Details
 - Frontend: Next.js 14, TypeScript 5, Tailwind CSS 3

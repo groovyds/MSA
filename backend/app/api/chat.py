@@ -1,6 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
+
 from typing import List
+
 from ..db.database import get_db
 from ..db.models import ChatHistory, Presentation
 from ..schemas.chat import ChatMessage, ChatResponse

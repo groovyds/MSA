@@ -1,12 +1,19 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, BackgroundTasks
 from sqlalchemy.orm import Session
+
 from typing import List
 import os
 import shutil
+import logging
+
 from ..db.database import get_db
 from ..db.models import Presentation, PresentationEmbedding
 from ..services.embedding_service import create_embeddings
 from ..schemas.presentation import PresentationCreate, PresentationResponse
+
+# Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -34,6 +41,11 @@ def validate_file(file: UploadFile) -> None:
         raise HTTPException(
             status_code=400,
             detail=f"File type not allowed. Allowed types: {', '.join(ALLOWED_EXTENSIONS)}"
+        )
+    if file.size > MAX_FILE_SIZE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File too large. Maximum size: {MAX_FILE_SIZE // 1024 // 1024} MB"
         )
     
     # Check file size
@@ -80,9 +92,8 @@ def cleanup_file(file_path: str) -> None:
     try:
         if os.path.exists(file_path):
             os.remove(file_path)
-    except:
-        pass  # Ignore cleanup errors
-
+    except Exception as e:
+        logger.error(f"Failed to clean up file {file_path}: {str(e)}")
 @router.post("/upload", response_model=PresentationResponse)
 async def upload_presentation(
     file: UploadFile = File(...),

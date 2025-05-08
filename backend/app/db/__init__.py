@@ -3,6 +3,7 @@ Database package initialization
 """
 from sqlalchemy import inspect
 from sqlalchemy.exc import OperationalError
+
 from .database import engine, Base
 from .models import *  # Import all models
 

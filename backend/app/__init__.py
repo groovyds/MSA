@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
+import logging
 
 import os
 from typing import Optional
@@ -57,11 +58,16 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     async def startup_event():
+        logging.info("Initializing database...")
         """Initialize database and other components on startup."""
         # Initialize database
         db = SessionLocal()
         try:
             init_db(db)
+            logging.info("Database initialized successfully")
+        except Exception as e:
+            logging.error(f"Failed to initialize database: {str(e)}")
+            raise
         finally:
             db.close()
 
@@ -90,5 +96,5 @@ __all__ = [
     "app",
     "settings",
     "SessionLocal",
-    "Base",
+    #"Base",
 ] 

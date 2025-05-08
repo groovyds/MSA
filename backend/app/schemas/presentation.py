@@ -4,7 +4,9 @@ from datetime import datetime
 
 class PresentationBase(BaseModel):
     """Base schema for presentation data."""
-    filename: str = Field(..., description="Name of the presentation file")
+    filename: str = Field(..., min_length=1,
+                          regex=r'^[\w\-\.]+$',
+                          description="Name of the presentation file")
     user_id: str = Field(..., description="ID of the user who uploaded the presentation")
 
 class PresentationCreate(PresentationBase):
