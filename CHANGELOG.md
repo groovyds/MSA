@@ -5,6 +5,18 @@ All notable changes to the Marketing Strategist AI Assistant project will be doc
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [x] 2025-05-12
+
+### Changed
+- Presentation schema now stores file_path instead of file_data. This was done to implement large file uploading by chunking and assembling the chunks while keeping small file uploads functional.
+
+
+## [x] 2025-05-08
+
+### Added
+- Relocated embedding model into core config to the settings()
+- Used settings() in base.py
+
 ## [x] 2025-05-07
 
 ### Added

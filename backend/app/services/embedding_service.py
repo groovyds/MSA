@@ -1,11 +1,14 @@
-from typing import List, Dict, Any
-from openai import OpenAI
-import os
 from dotenv import load_dotenv
 from sqlalchemy.orm import Session
 from sqlalchemy import func
+from openai import OpenAI
+
+import os
+from typing import List, Dict, Any
+
 from ..db.models import PresentationEmbedding, Presentation
 from ..utils.text_processor import extract_text_from_presentation, chunk_text
+from ..core.config import settings
 
 # Load environment variables
 load_dotenv(encoding='utf-16')
@@ -47,7 +50,7 @@ def create_embeddings(file_path: str, presentation_id: int, db: Session) -> List
         for i, chunk in enumerate(chunks):
             # Get embedding from OpenAI
             response = client.embeddings.create(
-                model="text-embedding-3-small",
+                model=settings.EMBEDDING_MODEL,
                 input=chunk
             )
             

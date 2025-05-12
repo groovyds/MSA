@@ -43,9 +43,11 @@ class Settings(BaseSettings):
     OPENAI_MODEL: str = "gpt-4o-mini"
     OPENAI_TEMPERATURE: float = 0.7
 
+    # Embedding Settings
+    EMBEDDING_MODEL: str = "text-embedding-3-small"
     # File Upload Settings
     MAX_UPLOAD_SIZE: int = 50 * 1024 * 1024  # 50MB
-    ALLOWED_EXTENSIONS: List[str] = ["pptx", "pdf", "docx"]
+    ALLOWED_EXTENSIONS: List[str] = ["pptx", "pdf"]   #Removed docx 
     UPLOAD_DIR: str = "uploads"
     STATIC_DIR: str = "static"
 

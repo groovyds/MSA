@@ -1,17 +1,20 @@
-from typing import Dict, List, Optional
 from langgraph.graph import Graph
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+
 import os
+from typing import Dict, List, Optional
+
+from ..core.config import settings
 
 class BaseAgent:
     """Base class for all agents in the system."""
     
     def __init__(
         self,
-        model_name: str = "gpt-4-mini",
-        temperature: float = 0.7,
+        model_name: str = settings.OPENAI_MODEL,
+        temperature: float = settings.OPENAI_TEMPERATURE,
         max_tokens: int = 1000
     ):
         self.llm = ChatOpenAI(
