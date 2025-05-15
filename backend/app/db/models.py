@@ -18,7 +18,8 @@ class Presentation(Base):
         id (int): Primary key.
         filename (str): Name of the presentation file.
         upload_date (datetime): When the presentation was uploaded.
-        file_data (bytes): Binary data of the presentation file.
+        file_path (str): File path to the presentation file.
+        file_size (int): Size of the file in bytes.
         presentation_metadata (dict): JSON metadata about the presentation.
         user_id (str): ID of the user who uploaded the presentation.
         embeddings (List[PresentationEmbedding]): Related embeddings.
@@ -26,9 +27,10 @@ class Presentation(Base):
     __tablename__ = "presentations"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    filename: Mapped[str] = mapped_column(String, index=True, filename=True)
+    filename: Mapped[str] = mapped_column(String, index=True)
     upload_date: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-    file_data: Mapped[Optional[bytes]] = mapped_column(LargeBinary)
+    file_path: Mapped[Optional[str]] = mapped_column(String)
+    file_size: Mapped[Optional[int]] = mapped_column(Integer)
     presentation_metadata: Mapped[Optional[dict]] = mapped_column(JSONB)
     user_id: Mapped[str] = mapped_column(String, index=True)
     

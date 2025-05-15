@@ -1,7 +1,8 @@
-import os
-from typing import List
 import PyPDF2
 from pptx import Presentation as PPTXPresentation
+
+import os
+from typing import List
 
 def extract_text_from_presentation(file_path: str) -> str:
     """
