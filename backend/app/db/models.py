@@ -1,6 +1,6 @@
 """Database models for the application."""
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, LargeBinary, Text, ARRAY, Float
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy import Integer, String, DateTime, ForeignKey, Text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import func
 from pgvector.sqlalchemy import Vector

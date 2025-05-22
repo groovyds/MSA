@@ -1,0 +1,8 @@
+Connect to chat api
+
+re-do base.py with langgraph
+
+reactagent with memory(short-long), rag, tools, MCP, human in the loop somewhere? , 
+
+later
+evaluation methods, llm as judge
