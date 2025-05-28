@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
@@ -8,6 +9,9 @@ from app.core.config import settings
 
 # Load environment variables
 load_dotenv(encoding="utf-16")
+
+# Create base class for models
+Base = declarative_base()
 
 # Create SQLAlchemy engine using the database URL from settings
 SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URI

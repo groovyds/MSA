@@ -3,6 +3,7 @@ Database package initialization
 """
 from sqlalchemy import inspect
 from sqlalchemy.exc import OperationalError
+from sqlalchemy.orm import Session
 
 from .database import engine, Base
 from .models import *  # Import all models
@@ -38,10 +39,13 @@ def _is_initialized():
     except OperationalError:
         return False
 
-def init_db():
+def init_db(db: Session = None):
     """
     Initialize the database if it hasn't been initialized yet.
     This includes creating tables and enabling the pgvector extension.
+    
+    Args:
+        db: Optional database session
     """
     if not _is_initialized():
         # Create all tables

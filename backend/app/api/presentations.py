@@ -11,11 +11,11 @@ import json
 import datetime
 
 
-from ..db.database import get_db
+from ..db.database import get_db, SessionLocal
 from ..db.models import Presentation, PresentationEmbedding
 from ..services.embedding_service import create_embeddings
 from ..schemas.presentation import PresentationCreate, PresentationResponse
-from ..core.config import Settings
+from ..core.config import settings # import settings not class
 
 # Logging
 logging.basicConfig(level=logging.INFO)
@@ -24,12 +24,25 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 # Configure upload settings
-UPLOAD_DIR = Settings.UPLOAD_DIR
-MAX_FILE_SIZE = Settings.MAX_UPLOAD_SIZE
-ALLOWED_EXTENSIONS = Settings.ALLOWED_EXTENSIONS
+UPLOAD_DIR = settings.UPLOAD_DIR
+MAX_FILE_SIZE = settings.MAX_UPLOAD_SIZE
+ALLOWED_EXTENSIONS = settings.ALLOWED_EXTENSIONS
 
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
+
+#  Create embeddings in background with separate session
+def create_embeddings_task(file_path:str, presentation_id:int):
+    """
+    Background task to create embeddings with its own database session.
+    """
+    db = SessionLocal()
+    try:
+        create_embeddings(file_path, presentation_id, db)
+    except Exception as e:
+        logger.error(f"Failed to create embeddings: {str(e)}")
+    finally:
+        db.close()
 
 async def validate_file(file: UploadFile) -> bytes:
     """
@@ -201,6 +214,7 @@ async def upload_presentation(
         presentation = Presentation(
             filename=file.filename,
             file_path=file_path,   # Updated from file_data
+            file_size=len(file_content), # added
             user_id="default_user",  # TODO: Implement user authentication
             presentation_metadata={}  # TODO: Extract metadata from file
         )
@@ -210,10 +224,7 @@ async def upload_presentation(
         
         # Create embeddings in background
         if background_tasks:
-            background_tasks.add_task(create_embeddings, file_path, presentation.id, db)
-        
-        # Clean up the file after processing
-        background_tasks.add_task(cleanup_file, file_path)
+            background_tasks.add_task(create_embeddings_task, file_path, presentation.id)
         
         return presentation
         
