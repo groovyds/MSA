@@ -1,6 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from typing import List, Dict, Any
 import os
@@ -28,7 +29,7 @@ class ChatService:
         message: str,
         presentation_id: int,
         user_id: str,
-        db: Session,
+        db: AsyncSession,
         max_context_chunks: int = 5,
         conversation_history_limit: int = 5
     ) -> Dict[str, Any]:
@@ -47,21 +48,21 @@ class ChatService:
             Dict containing response and metadata
         """
         try:
-            # 1. Get presentation info
-            presentation = db.query(Presentation)\
-                .filter(Presentation.id == presentation_id)\
-                .first()
+            # 1. Get presentation info - Async version
+            stmt = select(Presentation).where(Presentation.id == presentation_id)
+            result = await db.execute(stmt)
+            presentation = result.scalar_one_or_none()
             
             if not presentation:
                 raise Exception(f"Presentation {presentation_id} not found")
             
             # 2. Get conversation history for context
-            conversation_context = self._get_conversation_context(
+            conversation_context = await self._get_conversation_context(
                 user_id, presentation_id, db, conversation_history_limit
             )
             
             # 3. Get relevant chunks using RAG
-            similar_chunks = get_similar_chunks(
+            similar_chunks = await get_similar_chunks(
                 query=message,
                 presentation_id=presentation_id,
                 db=db,
@@ -88,25 +89,25 @@ class ChatService:
             return response_data
             
         except Exception as e:
+            await db.rollback() # async rollback
             raise Exception(f"Failed to generate response: {str(e)}")
     
-    def _get_conversation_context(
+    async def _get_conversation_context(
         self, 
         user_id: str, 
         presentation_id: int, 
-        db: Session, 
+        db: AsyncSession, 
         limit: int
     ) -> List[Dict[str, str]]:
         """Get recent conversation history for context."""
         try:
-            recent_chats = db.query(ChatHistory)\
-                .filter(
-                    ChatHistory.user_id == user_id,
-                    ChatHistory.presentation_id == presentation_id
-                )\
-                .order_by(ChatHistory.created_at.desc())\
-                .limit(limit)\
-                .all()
+            stmt = select(ChatHistory).where(
+                ChatHistory.user_id == user_id,
+                ChatHistory.presentation_id == presentation_id
+            ).order_by(ChatHistory.created_at.desc()).limit(limit)
+            
+            result = await db.execute(stmt)
+            recent_chats = result.scalars().all()
             
             # Reverse to get chronological order
             context = []
@@ -319,7 +320,7 @@ async def generate_response(
     message: str,
     presentation_id: int,
     user_id: str = "default_user",
-    db: Session = None,
+    db: AsyncSession = None,
     max_context_chunks: int = 5
 ) -> str:
     """

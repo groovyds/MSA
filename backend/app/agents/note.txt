@@ -6,3 +6,4 @@ reactagent with memory(short-long), rag, tools, MCP, human in the loop somewhere
 
 later
 evaluation methods, llm as judge
+this is multi agent ?
