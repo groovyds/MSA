@@ -17,7 +17,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 async def generate_response(
     message: str,
     presentation_id: int,
-    db: Session = None,
+    db: Session,
     max_context_chunks: int = 3
 ) -> str:
     """

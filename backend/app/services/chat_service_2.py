@@ -10,6 +10,7 @@ from .embedding_service import get_similar_chunks
 from ..agents.base import PresentationAnalyst, ResearchAgent
 from ..db.models import ChatHistory, Presentation
 from ..core.config import settings
+from ..agents.base import ChatAgent
 
 # Load environment variables
 load_dotenv(encoding='utf-16')
@@ -23,6 +24,7 @@ class ChatService:
     def __init__(self):
         self.presentation_analyst = PresentationAnalyst()
         self.research_agent = ResearchAgent()
+        self.chat_agent = ChatAgent()
         
     async def generate_response(
         self,

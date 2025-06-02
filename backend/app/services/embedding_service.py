@@ -112,7 +112,7 @@ async def create_embeddings_batch(
 async def create_single_embedding_optimized(
           chunk_data: Dict[str, Any]
 ) -> PresentationEmbedding:
-        """Optimizeed single embedding creation with error handling."""
+        """Optimized single embedding creation with error handling."""
         max_retries = 3
         base_delay = 1
 

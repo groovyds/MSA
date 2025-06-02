@@ -1,17 +1,17 @@
 # Program Design for Marketing Strategist Data Management
 
-This document outlines a program designed to assist a marketing strategist in managing and utilizing data from PowerPoint presentations (150 per client). The program extracts data, stores it in a database, enables AI-driven interactions via langgraph and OpenAI’s GPT-4o-mini, and provides a user-friendly interface. It includes a professional file structure and best practices for implementation using Python.
+This document outlines a program designed to assist a marketing strategist in managing and utilizing data from PowerPoint presentations (up to 150 per client). The program extracts data, stores it in a database, enables AI-driven interactions via langgraph and OpenAI’s GPT-4o-mini, and provides a user-friendly interface on the webapp. It includes a professional file structure and best practices for implementation using Python.
 
 ## Brainstormed Features
 
-The program is tailored to the needs of a marketing strategist, focusing on efficient data handling, intelligent search, content generation, and usability. Below are the key features:
+The program is tailored to the needs of a marketing strategist, focusing on efficient data handling, intelligent search, and usability. Below are the key features:
 
 ### 1. Data Extraction and Storage
 
-- **Functionality**: Extract text from PowerPoint presentations (.pptx, potentially .ppt or .odp) and store it in a database.
+- **Functionality**: Extract by streaming text from PDF's, PowerPoint presentations (.pptx, potentially .ppt ) and store it in a vector database. Large files can cause memory issues, streaming is a method of addressing large file handling.
 - **Metadata**: Include details like client name, presentation title, and slide number for organization.
 - **Purpose**: Enables structured access to large volumes of data across multiple clients.
-- **Implementation**: Use libraries like python-pptx for .pptx files, with potential support for other formats via conversion tools.
+- **Implementation**: TODO.
 
 ### 2. Semantic Search and Retrieval
 
