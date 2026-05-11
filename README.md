@@ -47,20 +47,7 @@ Your AI-powered partner for analyzing and understanding PowerPoint presentations
 4. **Chat**: Get answers to your questions about the presentation content
 5. **Analyze**: Receive insights and summaries about your presentations
 
-## 🔒 Security & Privacy
-
-- Your data is encrypted in transit and at rest
-- We never share your content with third parties
-- You maintain full control over your data
-- Regular security audits and updates
-
-## 📞 Support
-
-Need help? We're here for you:
-- Email: support@marketing-strategist-ai.com
-- Documentation: [Documentation Center](docs/)
-- FAQ: [Frequently Asked Questions](docs/faq.md)
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+This project is licensed under the MIT License
