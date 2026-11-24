@@ -1,53 +1,35 @@
-# Marketing Strategist AI Assistant
+# Marketing Strategist AI (archived)
 
-Your AI-powered partner for analyzing and understanding PowerPoint presentations. Get instant insights, search across your presentations, and chat with an AI assistant that understands your content.
+> **Status: archived, unfinished.** This was a 2025 learning project: a RAG prototype for a marketing
+> strategist who wanted to search and chat across their PowerPoint decks (about 150 per client).
+> It was never deployed and does not run end to end. Kept for reference only.
 
-## 🚀 Key Features
+## The idea
 
-- **Smart Presentation Analysis**: Upload your PowerPoint files and get instant AI-powered analysis
-- **Semantic Search**: Find relevant content across all your presentations using natural language
-- **AI Chat Interface**: Ask questions about your presentations and get intelligent responses
-- **Vector Search**: Advanced search capabilities that understand the meaning behind your content
+Upload `.pptx`/`.pdf` decks → extract the text → split it into chunks → embed them (OpenAI
+`text-embedding-3-small`) → store them in Postgres with pgvector → answer questions with the most
+similar chunks as context.
 
-## 🎯 Who is this for?
+## What exists
 
-- Marketing professionals who need to analyze multiple presentations
-- Teams looking to extract insights from their presentation archives
-- Anyone who wants to quickly find specific information across multiple PowerPoint files
-- Users who need an AI assistant to help understand presentation content
+- `backend/app/utils/text_processor.py`: text extraction and sentence-based chunking with overlap
+- `backend/app/services/embedding_service.py`: embeddings and cosine-distance search in pgvector
+- `backend/app/services/chat_service.py`: a retrieval-augmented prompt
+- FastAPI routes for uploads (including chunked uploads) and chat, plus a Next.js UI shell
 
-## 🛠️ Quick Start
+## Known gaps
 
-### Prerequisites
-- A modern web browser
-- PowerPoint files to analyze
-- An internet connection
+- The backend's database setup doesn't import cleanly, so the server doesn't start as-is.
+- The chat route doesn't pass a database session to retrieval.
+- The Next.js chat calls the model directly and never reaches the backend, so answers don't use the decks.
+- The upload calls aren't wired to the backend routes.
+- The agents in `backend/app/agents/` are stubs; there's no authentication; the Terraform/EC2 files were never used.
 
-### Getting Started
+## What I'd do differently
 
-1. **Access the Application**
-   - Visit our web application at [insert-production-url]
-   - Create an account or sign in
+Start with a single script (extract, chunk, embed, search) and a small set of real questions with
+expected answers to measure retrieval quality, before adding a web UI, agents or infrastructure.
 
-2. **Upload Your Presentations**
-   - Click the "Upload" button
-   - Select your PowerPoint files
-   - Wait for the AI to process your content
+## License
 
-3. **Start Exploring**
-   - Use the search bar to find specific content
-   - Chat with the AI assistant about your presentations
-   - View analysis results and insights
-
-## 💡 How It Works
-
-1. **Upload**: Share your PowerPoint presentations with our secure platform
-2. **Process**: Our AI analyzes the content, including text, images, and structure
-3. **Search**: Use natural language to find exactly what you're looking for
-4. **Chat**: Get answers to your questions about the presentation content
-5. **Analyze**: Receive insights and summaries about your presentations
-
-
-## 📜 License
-
-This project is licensed under the MIT License
+MIT
